@@ -1,0 +1,25 @@
+<launch>
+
+    <!--设置param的第一种方法，通过yaml文件-->
+    <!--<arg name="config_file" default="$(find topic_ex)/config/topic_ex.yaml"/>
+    <node name="talker_ex" pkg="topic_ex" type="talker_ex" output="screen" args="$(arg config_file)"/>
+    <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen"/>-->
+
+    <!--设置param的第二种方法，通过yaml文件,可-->
+    <node name="talker_ex" pkg="topic_ex" type="talker_ex" output="screen">
+        <rosparam command="load" file="$(find topic_ex)/config/topic_ex.yaml"/>
+    </node>
+    <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen"/>
+
+    <!--设置param的第三种方法，通过launch文件,可-->
+    <!--<param name="upx" type="double" value="1.01"/>
+    <param name="upy" type="double" value="1.02"/>
+    <node name="talker_ex" pkg="topic_ex" type="talker_ex" output="screen"/>
+    <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen"/>-->
+
+    <!--param与arg的区别：
+        param定义的参数可以供节点使用，
+        而arg定义的参数只能在launch文件中使用（所以经常与<$(arg 参数名)>命令共同使用？）
+    -->
+
+</launch>
