@@ -47,6 +47,13 @@ int main(int argc,char** argv){
     
     //循环发送
     while(ros::ok){     //ros::ok指ros处于运行状态，即只要ros在运行，该发送过程就持续工作
+
+        //定时刷新param
+        nh_ex.getParam("/talker_ex/trans_set/upx",cheng_x);
+        nh_ex.getParam("/talker_ex/trans_set/upy",cheng_y);
+        //nh_ex.getParam<std::string>("/talker_ex/agv_info/agv_name",name);
+        nh_ex.param<std::string>("/talker_ex/agv_info/agv_name",name,"Unknown");   
+
         msg.x = cheng_x * msg.x;   //为了展示效果，使msg的值指数型变化
         msg.y = cheng_y * msg.y;
         ROS_INFO("Talker:GPS:x=%f,y=%f",msg.x,msg.y);   //通过屏幕显示msg，类似于printf
