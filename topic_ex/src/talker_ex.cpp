@@ -1,6 +1,7 @@
 #include <ros/ros.h>        //每一个ROS文件都必须包含的头文件
 #include <topic_ex/gps_ex.h>   //gps_ex.msg在编译之后会在工作空间下的devel/include/topic_ex文件夹下生成一个同名头文件
-
+#include <string>
+using std::string;
 /*******topic发送节点的实现*******
  *①初始化（节点命名、创建句柄）
  *②通过.msg编译后得到的.h中定义的同名类，定义一个储存要发送消息的对象
@@ -13,13 +14,16 @@ int main(int argc,char** argv){
     ros::init(argc, argv, "talker_ex");//对节点命名
     ros::NodeHandle nh_ex;         //创建一个句柄，实例化node,通过这个句柄就可以用来创建Pub、Sub、Ser等
                                 //句柄名称nh是自定义的
+
     //读取参数服务器中的几个参数
     double cheng_x,cheng_y;
+    string name;
     //nh_ex.getParam("upx",cheng_x);
     //ros::param:get("upx",cheng_x);    //该命令与上面一行功能相同
-    nh_ex.param("upy",cheng_y,1.05);    //1.05为默认值
-    nh_ex.param("upx",cheng_y,1.01);
-    
+    nh_ex.param("/talker_ex/trans_set/upx",cheng_x,1.00);   //1.00为默认值
+    nh_ex.param("/talker_ex/trans_set/upy",cheng_y,1.00);
+    nh_ex.param<std::string>("/talker_ex/agv_info/agv_name",name,"Unknown");
+
     //在定义pub之前先设置定义储存值的msg，并初始化msg的值
     topic_ex::gps_ex msg;          //topic_ex是一个命名空间，gps是一个类，其定义是在gps.h中实现的
     msg.x=1.0;
@@ -46,6 +50,7 @@ int main(int argc,char** argv){
         msg.x = cheng_x * msg.x;   //为了展示效果，使msg的值指数型变化
         msg.y = cheng_y * msg.y;
         ROS_INFO("Talker:GPS:x=%f,y=%f",msg.x,msg.y);   //通过屏幕显示msg，类似于printf
+        ROS_INFO("The name of agv is %s",name.c_str());
         pub.publish(msg);               //发布消息
         loop_rate.sleep();              //根据定义的频率休眠相应时间
     }

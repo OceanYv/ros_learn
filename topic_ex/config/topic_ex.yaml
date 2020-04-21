@@ -1,3 +1,6 @@
-bianhuacanshu:
+trans_set:
   upx: 2
   upy: 2.01
+
+agv_info:
+  agv_name: agv1

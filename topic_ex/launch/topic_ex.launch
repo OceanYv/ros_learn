@@ -6,10 +6,10 @@
     <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen"/>-->
 
     <!--设置param的第二种方法，通过yaml文件,可-->
-    <node name="talker_ex" pkg="topic_ex" type="talker_ex" output="screen">
+    <node name="talker_ex" pkg="topic_ex" type="talker_ex" output="screen" launch-prefix="xterm -e">
         <rosparam command="load" file="$(find topic_ex)/config/topic_ex.yaml"/>
     </node>
-    <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen"/>
+    <node name="listener_ex" pkg="topic_ex" type="listener_ex" output="screen" launch-prefix="xterm -e"/>
 
     <!--设置param的第三种方法，通过launch文件,可-->
     <!--<param name="upx" type="double" value="1.01"/>
