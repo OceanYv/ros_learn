@@ -29,6 +29,15 @@ int main(int argc, char *argv[]){
          *()中的三个参数分别为：要监听topic的名称、队列的长度（一般比较小）、处理消息的回调函数的指针；
             回调函数：通过函数指针调用的函数；在本行执行完之后，回调函数会带着实参进入回调函数队列
          */
+
+    /*如果想要向回调函数中传入参数，除了将参数设为全局变量之外，还可以使用C++ 的boost库中的boost::bind() 函数
+    ros::Subscriber sub_ex = n_ex.subscribe("gps_ex_info", 1, boost::bind(gpsCallback_ex, _1, a));
+        *boost::bind函数的传入参数如下：
+        *第一个：回调函数名
+        *第二个：占位符，为回调函数的参数msg占一个位置
+        *第三+个：自己想要传入的参数
+    对应的，定义回调函数的时候，也会发生相应的变化：
+    void gpsCallback_ex(const topic_ex::gps_ex::ConstPtr &msg_ex, 自定义传入类型 自定义参数形参)*/
         
     ros::spin();        //反复查看并执行回调函数队列中的回调函数；
                         //ros::spin()为一个阻塞函数，会反复执行陷入死循环；ros::spinOnce()函数为非阻塞函数，只执行队列中的第一个回调函数；

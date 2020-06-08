@@ -9,9 +9,7 @@
  *③编写回调函数
  *④利用spin执行回调函数
  */
-
-
-
+ 
 // 定义请求处理函数
 //service_ex是一个命名空间，Greeting是一个类，Request、Response是指向结构体的一个指针，定义在.h文件中
 bool handle_function(service_ex::Greeting::Request &req,

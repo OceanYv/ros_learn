@@ -1,6 +1,7 @@
 #include <ros/ros.h>        //每一个ROS文件都必须包含的头文件
 #include <topic_ex/gps_ex.h>   //gps_ex.msg在编译之后会在工作空间下的devel/include/topic_ex文件夹下生成一个同名头文件
 #include <string>
+
 using std::string;
 /*******topic发送节点的实现*******
  *①初始化（节点命名、创建句柄）
@@ -60,6 +61,7 @@ int main(int argc,char** argv){
         ROS_INFO("The name of agv is %s",name.c_str());
         pub.publish(msg);               //发布消息
         loop_rate.sleep();              //根据定义的频率休眠相应时间
+        
     }
     return 0;
 }

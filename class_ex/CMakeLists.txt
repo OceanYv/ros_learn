@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(linux_cmd_try)
+cmake_minimum_required(VERSION 3.0.2)
+project(class_ex)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -37,13 +37,6 @@ find_package(catkin REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
-
-find_package(cmake_modules REQUIRED)
-find_package(Eigen3 REQUIRED)
-include_directories(
-  include ${catkin_INCLUDE_DIRS}${EIGEN3_INCLUDE_DIR})
-
-add_definitions(${EIGEN_DEFINITIONS})
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
 ##   * uncomment the add_*_files sections below as needed
@@ -109,7 +102,7 @@ add_definitions(${EIGEN_DEFINITIONS})
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES linux_cmd_try
+#  LIBRARIES class_ex
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -128,7 +121,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/linux_cmd_try.cpp
+#   src/${PROJECT_NAME}/class_ex.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -139,7 +132,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/linux_cmd_try_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/class_ex_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -203,7 +196,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_linux_cmd_try.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_class_ex.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -211,27 +204,21 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-
-add_executable(linux_try
-  src/linux_try.cpp
+add_library(class_ex
+  include/class_ex/class_ex.h
+  src/class_ex.cpp
 )
-add_dependencies(linux_try ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(linux_try
+add_dependencies(class_ex ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(class_ex
   ${catkin_LIBRARIES}
 )
 
-add_executable(eigen_try
-  src/eigen_try.cpp
+
+add_executable(class_node
+  src/class_node.cpp
 )
-add_dependencies(eigen_try ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(eigen_try
+add_dependencies(class_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(class_node class_ex
   ${catkin_LIBRARIES}
 )
 
-add_library(shishi
-    include/linux_cmd_try/shishi.h
-    src/shishi.cpp
-)
-
-target_link_libraries(shishi ${catkin_LIBRARIES})
-add_dependencies(shishi ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
