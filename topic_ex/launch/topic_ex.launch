@@ -22,4 +22,4 @@
         而arg定义的参数只能在launch文件中使用（所以经常与<$(arg 参数名)>命令共同使用？）
     -->
 
-</launch>ros 
+</launch>
